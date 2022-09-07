@@ -1,0 +1,75 @@
+    ////All Possible Subset Sum
+    
+    
+    ll n;
+    cin>>n;
+    ll ara[n+10];
+    ll total=0;
+    for(ll i=1;i<=n;i++)
+    {
+        cin>>ara[i];
+        total+=ara[i];
+    }
+
+    set<ll>st;
+    ll flg[total+10];for(ll i=0;i<total+10;i++)flg[i]=0;
+    ll sub[n+2][total+10];
+    for(ll i=0;i<=total;i++)
+    {
+        sub[0][i]=0;
+    }
+    for(ll i=0;i<=n;i++)
+    {
+        sub[i][0]=1;
+    }
+
+    for(ll i=1;i<=n;i++)
+    {
+        for(ll j=1;j<=total;j++)
+        {
+            if(j<ara[i])
+            {
+                sub[i][j]=sub[i-1][j];
+            }
+            else
+            {
+                if(sub[i-1][j])sub[i][j]=sub[i-1][j];
+                else
+                {
+                    sub[i][j]=sub[i-1][j-ara[i]];
+                }
+
+            }
+            if(sub[i][j])
+            {
+                flg[j]=1;
+            }
+        }
+    }
+
+//    for(ll i=0;i<=n;i++)
+//    {
+//        for(ll j=0;j<=total;j++)
+//        {
+//            cout<<sub[i][j]<<" ";
+//        }
+//        cout<<N;
+//    }
+//    cout<<N<<N;
+    ll cnt=0;
+    for(ll i=1;i<=total;i++)
+    {
+        if(flg[i])
+        {
+            cnt++;
+        }
+    }
+    cout<<cnt<<N;
+    for(ll i=1;i<=total;i++)
+    {
+        if(flg[i])
+        {
+            cout<<i<<" ";
+        }
+    }
+    cout<<N;
